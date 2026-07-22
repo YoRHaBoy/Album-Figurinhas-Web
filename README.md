@@ -1,4 +1,4 @@
-# 🏆 Final Fantasy - Crystal Album
+# Final Fantasy - Crystal Album
 
 O **Final Fantasy - Crystal Album** é um álbum de figurinhas virtual interativo completo (Frontend + Backend) projetado para homenagear os heróis lendários, conjuradoras, antagonistas, classes clássicas (Jobs) e mascotes de uma das maiores franquias de RPG da história dos videogames. 
 
@@ -8,9 +8,9 @@ Este projeto foi construído e customizado durante a **Imersão Web & IA** da Al
 
 ---
 
-## 🚀 Principais Funcionalidades
+## Principais Funcionalidades
 
-### 🎨 Frontend
+### Frontend
 - **Capa Épica com Cristal de Luz:** Emblema central do Cristal de Luz desenvolvido em SVG vetorial puro, com lapidações em degradê de ciano e safira, aura pulsante de energia Mako, anéis rúnicos 3D orbitais e partículas estelares em movimento.
 - **Virada de Página Realista (Page Flip):** Utilização da biblioteca `St.PageFlip` para proporcionar uma experiência fluida e tátil de folhear o álbum de figurinhas.
 - **Áudio Sintetizado Dinamicamente (Web Audio API):** Som analógico realista de papel sendo folheado. Gerado 100% via código (White Noise + Bandpass Filter dinâmico com varredura de frequência), dispensando o uso de arquivos externos de áudio.
@@ -18,7 +18,7 @@ Este projeto foi construído e customizado durante a **Imersão Web & IA** da Al
 - **Consumo de API Assíncrono:** Comunicação assíncrona (`fetch`) que consulta a API FastAPI para resgatar os metadados das figurinhas e preencher dinamicamente os slots vazios do álbum com as imagens correspondentes.
 - **Navegação Flexível:** Suporte a cliques nas setas da interface, arrasto com mouse/touch e atalhos de teclado (`←` e `→`).
 
-### ⚙️ Backend (API RESTful)
+### Backend (API RESTful)
 - **Servidor FastAPI:** API em Python para listagem de figurinhas e entrega dinâmica de imagens.
 - **Suporte a CORS:** Configuração completa de middleware `CORSMiddleware` liberando acessos de qualquer origem (`allow_origins=["*"]`).
 - **Resolução de Caminhos Absolutos:** Mapeamento dinâmico de diretórios locais via `os.path.abspath(__file__)`.
@@ -27,7 +27,7 @@ Este projeto foi construído e customizado durante a **Imersão Web & IA** da Al
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 ### Frontend
 - **Estruturação:** HTML5 Semântico com SVG vetorial inline.
@@ -45,7 +45,7 @@ Este projeto foi construído e customizado durante a **Imersão Web & IA** da Al
 
 ---
 
-## 📂 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```text
 /
@@ -67,33 +67,33 @@ Este projeto foi construído e customizado durante a **Imersão Web & IA** da Al
 
 ---
 
-## 🌐 Detalhamento dos Arquivos
+## Detalhamento dos Arquivos
 
-### 1. ⚙️ [Backend/main.py]
+### 1. [Backend/main.py]
 Contém o servidor FastAPI e a API RESTful:
 - **`GET /figurinhas`**: Retorna o JSON com a lista das figurinhas cadastradas e ativas no álbum.
 - **`GET /figurinhas/{id}/imagem`**: Busca a imagem correspondente ao ID utilizando padrão de busca `glob` e a retorna via `FileResponse` (ou `HTTPException` 404).
 
-### 2. 🎨 [Frontend/index.html]
+### 2. [Frontend/index.html]
 Contém a estrutura das 8 páginas do álbum:
 - **Página 0 (Capa):** Selo de coleção, título em efeito Glitch e a obra central do Cristal de Luz em SVG com partículas e anéis rúnicos.
 - **Páginas 1 a 6:** Seções temáticas com slots para as 30 figurinhas (Protagonistas, Heroínas, Vilões, Summons, Jobs e Mascotes).
 - **Página 7 (Contracapa):** Resumo do álbum e código de barras.
 
-### 3. 💅 [Frontend/style.css]
+### 3. [Frontend/style.css]
 Responsável pelo visual de fantasia épica:
 - **Cristal de Luz em SVG:** Efeitos de lapidação cristalina, brilho e animação de flutuação.
 - **Animações 3D:** Órbitas rúnicas em rotação contínua e partículas de poeira estelar (`.sparkle`).
 - **Slots do Álbum:** Bordas dinâmicas indicando o preenchimento da figurinha (`.slot-preenchido`).
 
-### 4. 🧠 [Frontend/app.js]
+### 4. [Frontend/app.js]
 Gerencia a interatividade e consumo de dados:
 - **`preencherFigurinhas()`**: Faz a requisição para `http://localhost:8000/figurinhas` e insere dinamicamente as imagens nos slots correspondentes.
 - **`playPaperTurnSound()`**: Sintetizador programático com Web Audio API para reproduzir o som de folhear papel.
 
 ---
 
-## ⚡ Como Executar o Projeto
+## Como Executar o Projeto
 
 ### 1. Iniciar o Backend (FastAPI)
 
@@ -130,7 +130,7 @@ Ao abrir, o frontend irá se conectar automaticamente à API local em `http://lo
 
 ---
 
-## 📖 Organização das 30 Figurinhas
+## Organização das 30 Figurinhas
 
 | ID | Personagem / Item | Categoria | Status na API |
 | :---: | :--- | :--- | :---: |
@@ -147,6 +147,6 @@ Ao abrir, o frontend irá se conectar automaticamente à API local em `http://lo
 
 ---
 
-## 📜 Licença
+## Licença
 
 Projeto desenvolvido para fins educacionais durante a Imersão Alura 2026. Todos os direitos dos personagens e marca pertencem à Square Enix.
