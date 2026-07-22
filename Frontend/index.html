@@ -55,15 +55,21 @@
                         <h1 class="cover-title glitch" data-text="FINAL FANTASY">FINAL FANTASY</h1>
                         <h2 class="cover-subtitle glitch" data-text="CRYSTAL ALBUM">CRYSTAL ALBUM</h2>
                         <div class="cover-art">
-                            <div class="art-grid"></div>
+                            <div class="crystal-aura"></div>
+
+                            <!-- Floating Magic Sparkles -->
+                            <div class="sparkle sp-1"></div>
+                            <div class="sparkle sp-2"></div>
+                            <div class="sparkle sp-3"></div>
+                            <div class="sparkle sp-4"></div>
 
                             <!-- Floating Mini Cards Silhouette Collage -->
                             <div class="mini-card mc-turing">
-                                <div class="mc-avatar">FF</div>
+                                <div class="mc-avatar">VII</div>
                                 <span class="mc-num">#01</span>
                             </div>
                             <div class="mini-card mc-guido">
-                                <div class="mc-avatar">VII</div>
+                                <div class="mc-avatar">VIII</div>
                                 <span class="mc-num">#11</span>
                             </div>
                             <div class="mini-card mc-jobs">
@@ -71,15 +77,67 @@
                                 <span class="mc-num">#30</span>
                             </div>
 
-                            <!-- Central Glowing 3D Tech Sphere -->
-                            <div class="tech-sphere">
-                                <div class="sphere-core">
-                                    <svg class="art-logo" viewBox="0 0 24 24">
-                                        <path d="M12 2L2 22h20L12 2zm0 4l6.5 13h-13L12 6z" />
-                                    </svg>
-                                </div>
-                                <div class="sphere-ring ring-1"></div>
-                                <div class="sphere-ring ring-2"></div>
+                            <!-- Central Ethereal Crystal of Light (Final Fantasy Emblem) -->
+                            <div class="ff-crystal-container">
+                                <div class="crystal-glow-core"></div>
+                                <div class="rune-ring ring-1"></div>
+                                <div class="rune-ring ring-2"></div>
+
+                                <svg class="ff-crystal-svg" viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="cGradTopLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#ffffff" />
+                                            <stop offset="60%" stop-color="#00f0ff" />
+                                            <stop offset="100%" stop-color="#00aaff" />
+                                        </linearGradient>
+                                        <linearGradient id="cGradTopRight" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#e0ffff" />
+                                            <stop offset="70%" stop-color="#0088ff" />
+                                            <stop offset="100%" stop-color="#0044cc" />
+                                        </linearGradient>
+                                        <linearGradient id="cGradBottomLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#00d2ff" />
+                                            <stop offset="60%" stop-color="#0055ff" />
+                                            <stop offset="100%" stop-color="#031140" />
+                                        </linearGradient>
+                                        <linearGradient id="cGradBottomRight" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#0077ff" />
+                                            <stop offset="70%" stop-color="#002b99" />
+                                            <stop offset="100%" stop-color="#020a28" />
+                                        </linearGradient>
+                                        <linearGradient id="cGradCore" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95" />
+                                            <stop offset="50%" stop-color="#00f0ff" stop-opacity="0.8" />
+                                            <stop offset="100%" stop-color="#0055ff" stop-opacity="0.2" />
+                                        </linearGradient>
+                                        <filter id="crystalGlowFilter" x="-30%" y="-30%" width="160%" height="160%">
+                                            <feGaussianBlur stdDeviation="3.5" result="blur" />
+                                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                        </filter>
+                                    </defs>
+
+                                    <!-- Outer Floating Shards -->
+                                    <polygon points="12,38 2,50 16,60" fill="url(#cGradTopLeft)" opacity="0.85" />
+                                    <polygon points="88,38 98,50 84,60" fill="url(#cGradTopRight)" opacity="0.85" />
+                                    <polygon points="50,2 43,14 57,14" fill="#ffffff" opacity="0.9" />
+
+                                    <!-- Main Crystal Body with Glow -->
+                                    <g filter="url(#crystalGlowFilter)">
+                                        <!-- Top Left Facet -->
+                                        <polygon points="50,10 18,55 50,70" fill="url(#cGradTopLeft)" />
+                                        <!-- Top Right Facet -->
+                                        <polygon points="50,10 82,55 50,70" fill="url(#cGradTopRight)" />
+                                        <!-- Bottom Left Facet -->
+                                        <polygon points="50,70 18,55 50,132" fill="url(#cGradBottomLeft)" />
+                                        <!-- Bottom Right Facet -->
+                                        <polygon points="50,70 82,55 50,132" fill="url(#cGradBottomRight)" />
+                                        <!-- Inner Glowing Core Facet -->
+                                        <polygon points="50,25 68,55 50,105 32,55" fill="url(#cGradCore)" />
+                                        <!-- Facet Lines & Highlights -->
+                                        <polyline points="50,10 50,132" stroke="#ffffff" stroke-width="1.2" opacity="0.75" />
+                                        <polyline points="18,55 50,70 82,55" stroke="#ffffff" stroke-width="1" opacity="0.65" />
+                                    </g>
+                                </svg>
                             </div>
                         </div>
                         <p class="cover-footer-text">OS HERÓIS, VILÕES E SUMMONS DE GAIA E EORZEA</p>

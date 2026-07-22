@@ -1,107 +1,152 @@
 # 🏆 Final Fantasy - Crystal Album
 
-O **Final Fantasy - Crystal Album** é um álbum de figurinhas virtual interativo projetado e desenvolvido para homenagear os personagens icônicos, conjuradoras, antagonistas, classes clássicas (Jobs) e mascotes lendários de uma das maiores franquias de RPG da história dos videogames. Com uma interface inspirada em cristais mágicos, efeitos visuais refinados e transições de página realistas, o projeto combina o melhor do web design moderno e da interatividade frontend.
+O **Final Fantasy - Crystal Album** é um álbum de figurinhas virtual interativo completo (Frontend + Backend) projetado para homenagear os heróis lendários, conjuradoras, antagonistas, classes clássicas (Jobs) e mascotes de uma das maiores franquias de RPG da história dos videogames. 
 
-Este projeto foi customizado a partir do projeto base construído durante a **Imersão Alura** de julho de 2026.
+Com uma interface imersiva inspirada nos Cristais de Luz, o projeto combina o melhor do web design moderno, animações em SVG/CSS, som sintetizado dinamicamente e uma API RESTful completa desenvolvida com **FastAPI**.
+
+Este projeto foi construído e customizado durante a **Imersão Web & IA** da Alura (julho de 2026).
 
 ---
 
 ## 🚀 Principais Funcionalidades
 
-- **Virada de Página Realista (Page Flip):** Utiliza a biblioteca `St.PageFlip` para proporcionar uma experiência snappier e tátil de folhear as páginas do álbum.
-- **Controles de Navegação Flexíveis:** Navegação fluida por meio de botões visuais na tela, cliques/arrastes do mouse/tela touch, ou usando as setas do teclado (`←` e `→`).
-- **Áudio Sintetizado Dinamicamente (Web Audio API):** Som realista de papel sendo folheado. Em vez de carregar arquivos de áudio externos grandes, o sistema gera o som dinamicamente via sintetizador do navegador (White Noise com filtros dinâmicos e envelopes de volume).
-- **Controle de Som:** Botão flutuante para alternar o modo silencioso ou ativado.
-- **Consumo de API Dinâmica:** Integração automática com um backend para carregar dinamicamente imagens de figurinhas do servidor e preencher os slots vazios correspondentes.
-- **Visual Premium:** Design com tema de fantasia e cristais (Dark Mode), paleta de cores azul cristalina e Mako, efeitos de brilho (glow), glassmorphism, importação de fontes serif majestosas (`Cinzel`) e efeito de texto glitch na capa.
+### 🎨 Frontend
+- **Capa Épica com Cristal de Luz:** Emblema central do Cristal de Luz desenvolvido em SVG vetorial puro, com lapidações em degradê de ciano e safira, aura pulsante de energia Mako, anéis rúnicos 3D orbitais e partículas estelares em movimento.
+- **Virada de Página Realista (Page Flip):** Utilização da biblioteca `St.PageFlip` para proporcionar uma experiência fluida e tátil de folhear o álbum de figurinhas.
+- **Áudio Sintetizado Dinamicamente (Web Audio API):** Som analógico realista de papel sendo folheado. Gerado 100% via código (White Noise + Bandpass Filter dinâmico com varredura de frequência), dispensando o uso de arquivos externos de áudio.
+- **Controle de Som Integrado:** Botão flutuante para alternar o modo com som ou silencioso.
+- **Consumo de API Assíncrono:** Comunicação assíncrona (`fetch`) que consulta a API FastAPI para resgatar os metadados das figurinhas e preencher dinamicamente os slots vazios do álbum com as imagens correspondentes.
+- **Navegação Flexível:** Suporte a cliques nas setas da interface, arrasto com mouse/touch e atalhos de teclado (`←` e `→`).
+
+### ⚙️ Backend (API RESTful)
+- **Servidor FastAPI:** API em Python para listagem de figurinhas e entrega dinâmica de imagens.
+- **Suporte a CORS:** Configuração completa de middleware `CORSMiddleware` liberando acessos de qualquer origem (`allow_origins=["*"]`).
+- **Resolução de Caminhos Absolutos:** Mapeamento dinâmico de diretórios locais via `os.path.abspath(__file__)`.
+- **Busca Inteligente por Glob:** O endpoint de entrega de imagem utiliza `glob.glob` com padronização de prefixos (`{id:02d}[!0-9]*`) para localizar a imagem correta independentemente do nome exato do arquivo.
+- **Tratamento de Erros:** Retorno apropriado de status `404 Not Found` caso a imagem solicitada não seja localizada.
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Estruturação:** HTML5 semântico
-- **Estilização:** CSS3 (Vanilla CSS) com variáveis globais, gradientes radiais, layouts flex e grid responsivos.
-- **Interatividade:** JavaScript Vanilla (ES6+)
-- **Efeitos de Página:** [St.PageFlip API](https://github.com/Nodonisko/StPageFlip)
-- **Sintetizador de Áudio:** Web Audio API (geração de ondas sonoras programáticas)
-- **Integração:** Fetch API para comunicação com servidor RESTful
+### Frontend
+- **Estruturação:** HTML5 Semântico com SVG vetorial inline.
+- **Estilização:** CSS3 (Vanilla CSS) com variáveis globais, gradientes radiais/lineares, animações 3D (`@keyframes`) e efeito de texto Glitch.
+- **Lógica e Interatividade:** JavaScript Vanilla (ES6+).
+- **Biblioteca de Páginas:** [St.PageFlip API](https://github.com/Nodonisko/StPageFlip).
+- **Áudio:** Web Audio API (sintetizador analógico de papel).
+
+### Backend
+- **Linguagem:** Python 3.10+
+- **Framework Web:** FastAPI
+- **Servidor ASGI:** Uvicorn
+- **Manipulação de Arquivos e Mídia:** `fastapi.responses.FileResponse`, `os`, `glob`
+- **Ambiente Virtual:** Python `venv`
 
 ---
 
-## 📂 Detalhamento dos Arquivos e Suas Funções
+## 📂 Estrutura do Projeto
 
-O projeto é composto por três arquivos fundamentais na raiz, cada um responsável por uma camada específica da aplicação:
-
-### 1. 🌐 Estruturação e Conteúdo — [index.html](file:///c:/Users/bruno/OneDrive/Desktop/Imersoes%20Alura/Imersao%20Arq%20Web%20IA/index.html)
-Este arquivo define o esqueleto semântico da aplicação e contém todos os dados estruturais do álbum:
-*   **Controles de UI Iniciais:** Contém o botão de controle de áudio (`#sound-toggle`) com ícones SVG alternáveis e as setas de navegação (`#btn-prev` e `#btn-next`).
-*   **Contêiner do Livro (`.album-viewport` e `#book`):** A estrutura que envolve as páginas do álbum. Cada página é representada por uma `div` com a classe `.page` e atributos específicos como `data-density="hard"` para as capas duras.
-*   **Templates de Grade das Figurinhas (`.stickers-grid`):** Estrutura interna de cada página temática com slots (`.sticker-slot`), contendo o número do slot (`.slot-number`), o nome do personagem (`.slot-name`) e o seu papel/jogabilidade de origem (`.slot-role`).
-*   **Carregamento de Scripts:** Importa a biblioteca externa `page-flip.browser.min.js` via CDN e o script de comportamento local [app.js](file:///c:/Users/bruno/OneDrive/Desktop/Imersoes%20Alura/Imersao%20Arq%20Web%20IA/app.js).
-
-### 2. 🎨 Estilização e Efeitos Visuais — [style.css](file:///c:/Users/bruno/OneDrive/Desktop/Imersoes%20Alura/Imersao%20Arq%20Web%20IA/style.css)
-Responsável por criar a atmosfera mágica de fantasia épica e cristais (Cyberpunk/Sci-Fi/RPG) através de técnicas modernas de CSS:
-*   **Variáveis CSS (Custom Properties):** Centraliza as cores do tema de cristais (como `--color-blue-universe`, `--color-deep-blue` e `--color-dev-blue`) para manter a coerência visual.
-*   **Layouts e Alinhamentos:** Utiliza `Flexbox` para centralização do álbum na tela e `Grid` para a disposição geométrica simétrica dos slots de figurinhas dentro das páginas.
-*   **Animações e Efeitos Complexos:**
-    *   **Glitch Effect:** Animação de texto na capa simulando interferência digital e instabilidade da energia de Gaia.
-    *   **3D Tech Sphere:** Criação de anéis rotativos tridimensionais iluminados na capa utilizando `keyframes` de rotação em 3D.
-    *   **Efeito Hover e Glassmorphism:** Botões e slots translúcidos com bordas brilhantes ativadas sob o cursor.
-*   **Responsividade:** Controle dinâmico das dimensões do livro e ocultação de controles para se adaptar a diferentes tamanhos de tela.
-
-### 3. 🧠 Inteligência e Comportamento — [app.js](file:///c:/Users/bruno/OneDrive/Desktop/Imersoes%20Alura/Imersao%20Arq%20Web%20IA/app.js)
-Controla toda a lógica dinâmica, integração de APIs e som:
-*   **Integração com Backend API (`preencherFigurinhas`):**
-    *   Realiza uma requisição assíncrona (`fetch`) para obter os metadados das figurinhas a partir de `API_BASE_URL` (`http://localhost:8000/figurinhas`).
-    *   Cria um mapeamento (`Map`) e varre todos os slots do HTML.
-    *   Cria elementos `<img>` dinamicamente para as figurinhas cujos IDs foram encontrados e injeta-os no DOM, ativando a classe `.slot-preenchido` ao carregar a imagem com sucesso.
-*   **Inicialização do St.PageFlip:** Configura propriedades como tamanho máximo e mínimo de página, sombras dinâmicas (`drawShadow`), suporte a gestos mobile e tempo de transição otimizado para 800ms.
-*   **Gestos de Arraste Customizados:** Implementa ouvintes manuais de eventos de mouse (`mousedown`, `mousemove`, `mouseup`) e touch (`touchstart`, `touchmove`, `touchend`) para criar uma transição de dobra suave que acompanha a posição do dedo ou cursor.
-*   **Sintetizador Programático de Áudio (`playPaperTurnSound`):**
-    *   Cria um buffer de áudio temporário com ruído branco.
-    *   Desenha uma curva de volume (Envelope AD) para emular o início rápido da virada e o decaimento suave.
-    *   Aplica um **Bandpass Filter** (Filtro Passa-Faixa) dinâmico com varredura de frequência exponencial (de 1500Hz para 350Hz) para recriar o "whoosh" do ar sendo deslocado pelo papel.
-    *   Conecta tudo ao canal de saída de som do dispositivo do usuário.
-*   **Interações com a Interface:** Atalhos por teclado (`←` e `→`), desabilitação e habilitação dinâmica das setas laterais com base na página atual (esconde no início e fim do álbum).
+```text
+/
+├── Backend/
+│   ├── Imagens/                  # Pasta com as imagens das figurinhas (Formato WebP)
+│   │   ├── 01-cloud-strife.webp
+│   │   ├── 02-squall-leonheart.webp
+│   │   ├── 03-zidane-tribal.webp
+│   │   ├── 04-tidus.webp
+│   │   └── 05-noctis-lucis.webp
+│   ├── main.py                   # Servidor FastAPI e rotas da API
+│   └── venv/                     # Ambiente virtual Python
+├── Frontend/
+│   ├── index.html                # Estrutura HTML das páginas e slots do álbum
+│   ├── style.css                 # Estilos visuais, Cristal de Luz em SVG, animações e tema
+│   └── app.js                    # Consumo da API, inicialização do PageFlip e som sintetizado
+└── README.md                     # Documentação completa do projeto
+```
 
 ---
 
-## 📖 Organização das Páginas e Categorias
+## 🌐 Detalhamento dos Arquivos
 
-O álbum é dividido em seções temáticas muito bem detalhadas:
+### 1. ⚙️ [Backend/main.py]
+Contém o servidor FastAPI e a API RESTful:
+- **`GET /figurinhas`**: Retorna o JSON com a lista das figurinhas cadastradas e ativas no álbum.
+- **`GET /figurinhas/{id}/imagem`**: Busca a imagem correspondente ao ID utilizando padrão de busca `glob` e a retorna via `FileResponse` (ou `HTTPException` 404).
 
-*   **Página 0 (Capa):** Título estilizado com efeito *Glitch*, colagem de silhuetas de figurinhas flutuantes e esfera cristalina 3D central.
-*   **Página 1 (Protagonistas):** Guerreiros da Luz clássicos como Cloud Strife, Squall Leonhart, Zidane Tribal, Tidus e Noctis Lucis Caelum.
-*   **Página 2 (Heroínas):** Conjuradoras e guerreiras de grande destaque, incluindo Aerith Gainsborough, Tifa Lockhart, Yuna, Lightning e Terra Branford.
-*   **Página 3 (Vilões):** Antagonistas e vilões marcantes como Sephiroth, Kefka Palazzo, Kuja, Ardyn Izunia e Seymour Guado.
-*   **Página 4 (Summons):** Divindades lendárias e evocações clássicas como Bahamut, Shiva, Ifrit, Odin e Ramuh.
-*   **Página 5 (Jobs):** Classes clássicas da franquia, incluindo Guerreiro (Warrior), Mago Negro (Black Mage), Mago Branco (White Mage), Dragoneiro (Dragoon) e Ladrão (Thief).
-*   **Página 6 (Mascotes):** Criaturas lendárias do universo RPG como Chocobo, Moogle, Tonberry, Cactuar e o lendário Guerreiro da Luz (Você!).
-*   **Página 7 (Contracapa):** Resumo do álbum com logotipo oficial e código de barras simulado.
+### 2. 🎨 [Frontend/index.html]
+Contém a estrutura das 8 páginas do álbum:
+- **Página 0 (Capa):** Selo de coleção, título em efeito Glitch e a obra central do Cristal de Luz em SVG com partículas e anéis rúnicos.
+- **Páginas 1 a 6:** Seções temáticas com slots para as 30 figurinhas (Protagonistas, Heroínas, Vilões, Summons, Jobs e Mascotes).
+- **Página 7 (Contracapa):** Resumo do álbum e código de barras.
+
+### 3. 💅 [Frontend/style.css]
+Responsável pelo visual de fantasia épica:
+- **Cristal de Luz em SVG:** Efeitos de lapidação cristalina, brilho e animação de flutuação.
+- **Animações 3D:** Órbitas rúnicas em rotação contínua e partículas de poeira estelar (`.sparkle`).
+- **Slots do Álbum:** Bordas dinâmicas indicando o preenchimento da figurinha (`.slot-preenchido`).
+
+### 4. 🧠 [Frontend/app.js]
+Gerencia a interatividade e consumo de dados:
+- **`preencherFigurinhas()`**: Faz a requisição para `http://localhost:8000/figurinhas` e insere dinamicamente as imagens nos slots correspondentes.
+- **`playPaperTurnSound()`**: Sintetizador programático com Web Audio API para reproduzir o som de folhear papel.
 
 ---
 
-## ⚙️ Como Executar o Projeto
+## ⚡ Como Executar o Projeto
 
-### 1. Inicializar o Frontend
-Como o frontend é composto de arquivos estáticos, basta abrir o arquivo [index.html](file:///c:/Users/bruno/OneDrive/Desktop/Imersoes%20Alura/Imersao%20Arq%20Web%20IA/index.html) diretamente no seu navegador, ou utilizar uma extensão como o *Live Server* do VS Code para executá-lo sob um servidor local.
+### 1. Iniciar o Backend (FastAPI)
 
-### 2. Inicializar o Backend (Para Carregamento das Figurinhas)
-Para que as figurinhas apareçam preenchidas nos slots em vez de mostrarem apenas o número e descrição:
-1. Certifique-se de que o servidor backend está rodando no endereço local: `http://localhost:8000`.
-2. O servidor padrão é baseado em FastAPI. Para rodá-lo, navegue até a pasta do backend e execute:
+1. Abra o terminal na pasta `Backend`:
    ```bash
-   cd backend/dia-3
+   cd Backend
+   ```
+
+2. Ative o ambiente virtual (`venv`):
+   - **PowerShell:**
+     ```powershell
+     .\venv\Scripts\Activate.ps1
+     ```
+   - **Git Bash:**
+     ```bash
+     source venv/Scripts/activate
+     ```
+   - **Command Prompt (CMD):**
+     ```cmd
+     venv\Scripts\activate.bat
+     ```
+
+3. Execute o servidor FastAPI com Uvicorn:
+   ```bash
    uvicorn main:app --reload
    ```
-3. O script [app.js](file:///c:/Users/bruno/OneDrive/Desktop/Imersoes%20Alura/Imersao%20Arq%20Web%20IA/app.js) detectará automaticamente a conexão e substituirá os slots cinzas pelas fotos oficiais dos personagens.
+   *O servidor estará disponível em:* `http://localhost:8000`
+
+### 2. Abrir o Frontend
+
+Abra o arquivo [Frontend/index.html]  diretamente no seu navegador de preferência ou utilize a extensão **Live Server** do VS Code.
+
+Ao abrir, o frontend irá se conectar automaticamente à API local em `http://localhost:8000/figurinhas` e exibirá as figurinhas disponíveis coladas no álbum!
 
 ---
 
-## 🎵 O Efeito de Som de Papel Sintetizado
+## 📖 Organização das 30 Figurinhas
 
-Um dos destaques de engenharia de software no projeto é a função `playPaperTurnSound()` presente no [app.js](file:///c:/Users/bruno/OneDrive/Desktop/Imersoes%20Alura/Imersao%20Arq%20Web%20IA/app.js). Ela utiliza a **Web Audio API** para simular o atrito das páginas:
-- **Gerador de Ruído:** Um buffer de ruído branco (White Noise) é criado dinamicamente em tempo de execução.
-- **Envelope de Ganho:** Um envelope AD (Attack-Decay) faz o volume subir rapidamente e cair de forma suave simulando a aceleração da página.
-- **Filtro Dinâmico:** Um filtro passa-faixa (Bandpass Filter) com uma varredura de frequência exponencial que decai de 1500Hz a 350Hz imita o efeito de distanciamento sonoro da folha ao ser virada.
-- **Filtro Passa-Baixo:** Remove frequências agudas metálicas indesejadas para soar o mais analógico possível.
+| ID | Personagem / Item | Categoria | Status na API |
+| :---: | :--- | :--- | :---: |
+| **01** | Cloud Strife | Protagonistas | 🟢 Ativo |
+| **02** | Squall Leonheart | Protagonistas | 🟢 Ativo |
+| **03** | Zidane Tribal | Protagonistas | 🟢 Ativo |
+| **04** | Tidus | Protagonistas | 🟢 Ativo |
+| **05** | Noctis Lucis Caelum | Protagonistas | 🟢 Ativo |
+| **06 - 10** | Heroínas (Aerith, Tifa, Yuna, Lightning, Terra) | Heroínas | 🟡 Brevemente |
+| **11 - 15** | Vilões (Sephiroth, Kefka, Kuja, Ardyn, Seymour) | Vilões | 🟡 Brevemente |
+| **16 - 20** | Summons (Bahamut, Shiva, Ifrit, Odin, Ramuh) | Summons | 🟡 Brevemente |
+| **21 - 25** | Jobs (Warrior, Black Mage, White Mage, Dragoon, Thief) | Jobs | 🟡 Brevemente |
+| **26 - 30** | Mascotes / Lendas (Chocobo, Moogle, Tonberry, Cactuar, Você) | Mascotes | 🟡 Brevemente |
+
+---
+
+## 📜 Licença
+
+Projeto desenvolvido para fins educacionais durante a Imersão Alura 2026. Todos os direitos dos personagens e marca pertencem à Square Enix.

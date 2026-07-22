@@ -595,24 +595,50 @@ body.dragging * {
   position: relative;
   width: 250px;
   height: 290px;
-  border: 1px solid rgba(0, 240, 255, 0.2);
+  border: 1px solid rgba(0, 240, 255, 0.35);
   border-radius: 12px;
-  background: rgba(7, 8, 14, 0.7);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), inset 0 0 25px rgba(0, 240, 255, 0.05);
+  background: radial-gradient(circle at center, #0a1936 0%, #050a16 80%, #02040a 100%);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), inset 0 0 35px rgba(0, 240, 255, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
 
-.art-grid {
+.crystal-aura {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  background-size: 20px 20px;
-  background-image:
-    linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(0, 136, 255, 0.08) 45%, transparent 75%);
+  pointer-events: none;
+  animation: auraPulse 6s infinite ease-in-out;
+}
+
+@keyframes auraPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Sparkles / Magic Particles */
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 8px #00f0ff;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.sp-1 { top: 20%; left: 20%; animation: sparkleFloat 4s infinite ease-in-out 0s; }
+.sp-2 { top: 75%; left: 75%; animation: sparkleFloat 5s infinite ease-in-out 1s; }
+.sp-3 { top: 30%; right: 25%; animation: sparkleFloat 3.5s infinite ease-in-out 1.5s; }
+.sp-4 { bottom: 25%; left: 30%; animation: sparkleFloat 4.5s infinite ease-in-out 0.5s; }
+
+@keyframes sparkleFloat {
+  0% { opacity: 0; transform: translateY(0) scale(0.5); }
+  50% { opacity: 1; transform: translateY(-12px) scale(1.4); }
+  100% { opacity: 0; transform: translateY(-24px) scale(0.5); }
 }
 
 /* Floating Mini Cards Collage */
@@ -620,189 +646,155 @@ body.dragging * {
   position: absolute;
   width: 50px;
   height: 68px;
-  background: rgba(7, 8, 14, 0.85);
-  border: 1.5px solid rgba(0, 240, 255, 0.25);
+  background: rgba(5, 12, 30, 0.9);
+  border: 1.5px solid rgba(0, 240, 255, 0.35);
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   padding: 6px 4px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(0, 240, 255, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 240, 255, 0.15);
   z-index: 2;
   transition: all 0.3s ease;
 }
 
 .mini-card:hover {
   border-color: #00f0ff;
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+  box-shadow: 0 0 18px rgba(0, 240, 255, 0.5);
   transform: scale(1.1) translateY(-5px) !important;
   z-index: 6;
 }
 
 .mc-avatar {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 800;
-  font-size: 0.65rem;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 0.6rem;
   color: #00f0ff;
-  background: rgba(0, 240, 255, 0.1);
-  border: 1px solid rgba(0, 240, 255, 0.25);
-  width: 24px;
-  height: 24px;
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  letter-spacing: 0.5px;
 }
 
 .mc-num {
   font-family: monospace;
   font-size: 0.6rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .mc-turing {
   top: 25px;
-  left: 25px;
+  left: 20px;
   transform: rotate(-12deg);
   animation: floatCard1 6s infinite ease-in-out;
 }
 
 .mc-guido {
   bottom: 25px;
-  left: 20px;
+  left: 18px;
   transform: rotate(8deg);
   animation: floatCard2 7s infinite ease-in-out;
 }
 
 .mc-jobs {
   top: 85px;
-  right: 20px;
+  right: 18px;
   transform: rotate(15deg);
   animation: floatCard3 6.5s infinite ease-in-out;
 }
 
 @keyframes floatCard1 {
-
-  0%,
-  100% {
-    transform: rotate(-12deg) translateY(0);
-  }
-
-  50% {
-    transform: rotate(-10deg) translateY(-6px);
-  }
+  0%, 100% { transform: rotate(-12deg) translateY(0); }
+  50% { transform: rotate(-10deg) translateY(-6px); }
 }
 
 @keyframes floatCard2 {
-
-  0%,
-  100% {
-    transform: rotate(8deg) translateY(0);
-  }
-
-  50% {
-    transform: rotate(6deg) translateY(-4px);
-  }
+  0%, 100% { transform: rotate(8deg) translateY(0); }
+  50% { transform: rotate(6deg) translateY(-4px); }
 }
 
 @keyframes floatCard3 {
-
-  0%,
-  100% {
-    transform: rotate(15deg) translateY(0);
-  }
-
-  50% {
-    transform: rotate(18deg) translateY(-5px);
-  }
+  0%, 100% { transform: rotate(15deg) translateY(0); }
+  50% { transform: rotate(18deg) translateY(-5px); }
 }
 
-/* Central Glowing 3D Tech Sphere */
-.tech-sphere {
+/* Central Ethereal Crystal of Light */
+.ff-crystal-container {
   position: relative;
-  width: 110px;
-  height: 110px;
+  width: 130px;
+  height: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 3;
 }
 
-.sphere-core {
-  width: 66px;
-  height: 66px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #00f0ff 0%, #1f53e5 100%);
-  box-shadow: 0 0 25px rgba(0, 240, 255, 0.75), inset 0 0 10px rgba(255, 255, 255, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 5;
-  animation: spherePulse 4s infinite ease-in-out;
-}
-
-.art-logo {
-  width: 32px;
-  height: 32px;
-  stroke: var(--color-white-snow);
-  stroke-width: 2;
-  fill: none;
-}
-
-.sphere-ring {
+.crystal-glow-core {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  border: 1.5px solid rgba(0, 240, 255, 0.4);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.6) 0%, rgba(0, 119, 255, 0.3) 50%, transparent 80%);
+  filter: blur(8px);
+  z-index: 1;
+  animation: crystalGlowPulse 4s infinite ease-in-out;
+}
+
+@keyframes crystalGlowPulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.25); opacity: 1; }
+}
+
+.rune-ring {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border: 1.5px dashed rgba(0, 240, 255, 0.45);
   border-radius: 50%;
   pointer-events: none;
+  z-index: 2;
 }
 
-.sphere-ring.ring-1 {
-  transform: rotateX(70deg) rotateY(15deg);
-  animation: spinRing1 8s infinite linear;
-  border-top-color: transparent;
+.rune-ring.ring-1 {
+  transform: rotateX(72deg) rotateY(15deg);
+  animation: spinRune1 10s infinite linear;
+  border-top-color: #00f0ff;
 }
 
-.sphere-ring.ring-2 {
-  transform: rotateX(15deg) rotateY(70deg);
-  animation: spinRing2 8s infinite linear;
-  border-bottom-color: transparent;
+.rune-ring.ring-2 {
+  transform: rotateX(20deg) rotateY(72deg);
+  animation: spinRune2 10s infinite linear;
+  border-bottom-color: #00f0ff;
 }
 
-@keyframes spherePulse {
-
-  0%,
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
-  }
-
-  50% {
-    transform: scale(1.06);
-    box-shadow: 0 0 35px rgba(0, 240, 255, 0.9);
-  }
+@keyframes spinRune1 {
+  0% { transform: rotateX(72deg) rotateY(15deg) rotateZ(0deg); }
+  100% { transform: rotateX(72deg) rotateY(15deg) rotateZ(360deg); }
 }
 
-@keyframes spinRing1 {
-  0% {
-    transform: rotateX(70deg) rotateY(15deg) rotateZ(0deg);
-  }
-
-  100% {
-    transform: rotateX(70deg) rotateY(15deg) rotateZ(360deg);
-  }
+@keyframes spinRune2 {
+  0% { transform: rotateX(20deg) rotateY(72deg) rotateZ(360deg); }
+  100% { transform: rotateX(20deg) rotateY(72deg) rotateZ(0deg); }
 }
 
-@keyframes spinRing2 {
-  0% {
-    transform: rotateX(15deg) rotateY(70deg) rotateZ(360deg);
-  }
+.ff-crystal-svg {
+  position: relative;
+  width: 85px;
+  height: 120px;
+  z-index: 4;
+  filter: drop-shadow(0 0 14px rgba(0, 240, 255, 0.8));
+  animation: crystalFloat 4s infinite ease-in-out;
+}
 
-  100% {
-    transform: rotateX(15deg) rotateY(70deg) rotateZ(0deg);
-  }
+@keyframes crystalFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-7px) scale(1.03); }
 }
 
 .cover-footer-text {
